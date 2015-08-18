@@ -54,7 +54,7 @@
         
         if(width > height){
             ctx.translate(height, width);
-            canvas.rotate(90 * Math.PI / 180);
+            ctx.rotate(90 * Math.PI / 180);
         }
         
         // draw source image into the off-screen canvas:
