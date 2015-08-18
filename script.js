@@ -26,6 +26,11 @@
                 ratio = (img.width / target);
                 width = (img.width / ratio);
                 height = (img.height / ratio);
+                
+                if(/iPad|iPhone|iPod/.test(navigator.platform)){
+                    width = (img.height / ratio);
+                    height = (img.width / ratio);
+                }
 
                 var newDataUri = imageToDataUri(this, width, height, quality);
                 img2.src = newDataUri;
