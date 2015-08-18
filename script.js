@@ -26,11 +26,6 @@
                 ratio = (img.width / target);
                 width = (img.width / ratio);
                 height = (img.height / ratio);
-                
-                if(/iPad|iPhone|iPod/.test(navigator.platform)){
-                    width = (img.height / ratio);
-                    height = (img.width / ratio);
-                }
 
                 var newDataUri = imageToDataUri(this, width, height, quality);
                 img2.src = newDataUri;
@@ -56,9 +51,12 @@
         canvas.width = width;
         canvas.height = height;
         // rotate around this point
-        
+        if(/iPad|iPhone|iPod/.test(navigator.platform)){
+            rotateImageIOSFix(ctx, img, 0, 0, img.width, img.height, 0, 0, width, height); 
+        } else {
         // draw source image into the off-screen canvas:
-        drawImageIOSFix(ctx, img, 0, 0, img.width, img.height, 0, 0, width, height);
+            drawImageIOSFix(ctx, img, 0, 0, img.width, img.height, 0, 0, width, height);
+        }
         // encode image to data-uri with base64 version of compressed image
         return canvas.toDataURL('image/jpeg', quality || 0.8); // quality = [0.0, 1.0]
     }
@@ -100,6 +98,15 @@
      */
     function drawImageIOSFix(ctx, img, sx, sy, sw, sh, dx, dy, dw, dh) {
         var vertSquashRatio = detectVerticalSquash(img);
+        ctx.drawImage(img, sx * vertSquashRatio, sy * vertSquashRatio,
+            sw * vertSquashRatio, sh * vertSquashRatio,
+            dx, dy, dw, dh);
+    }
+    
+    function rotateImageIOSFix(ctx, img, sx, sy, sw, sh, dx, dy, dw, dh) {
+        var vertSquashRatio = detectVerticalSquash(img);
+        ctx.translate(image.width, image.height);
+        ctx.rotate(90 * Math.PI / 180);
         ctx.drawImage(img, sx * vertSquashRatio, sy * vertSquashRatio,
             sw * vertSquashRatio, sh * vertSquashRatio,
             dx, dy, dw, dh);
