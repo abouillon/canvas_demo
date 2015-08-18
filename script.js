@@ -52,7 +52,7 @@
         canvas.height = height;
         // rotate around this point
         
-        if(/iPad|iPhone|iPod/.test(navigator.platform)){
+        if(width > height)){
             ctx.translate(height, width);
             canvas.rotate(90 * Math.PI / 180);
         }
