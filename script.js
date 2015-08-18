@@ -52,7 +52,7 @@
         canvas.height = height;
         // rotate around this point
         
-        if(width > height)){
+        if(width > height){
             ctx.translate(height, width);
             canvas.rotate(90 * Math.PI / 180);
         }
