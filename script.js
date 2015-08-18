@@ -53,8 +53,8 @@
         // rotate around this point
         
         if(/iPad|iPhone|iPod/.test(navigator.platform)){
-            canvas.width = height;
-            canvas.height = width;
+            ctx.translate(height, width);
+            canvas.rotate(90 * Math.PI / 180);
         }
         
         // draw source image into the off-screen canvas:
