@@ -52,6 +52,11 @@
         canvas.height = height;
         // rotate around this point
         
+        if(/iPad|iPhone|iPod/.test(navigator.platform)){
+            ctx.translate(width * 0.5, height);
+            ctx.rotate(90 * Math.PI / 180);
+        }
+        
         // draw source image into the off-screen canvas:
         drawImageIOSFix(ctx, img, 0, 0, img.width, img.height, 0, 0, width, height);
         // encode image to data-uri with base64 version of compressed image
