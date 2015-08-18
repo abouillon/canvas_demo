@@ -28,6 +28,9 @@
                 height = (img.height / ratio);
 
                 var newDataUri = imageToDataUri(this, width, height, quality);
+                if(/iPad|iPhone|iPod/.test(navigator.platform)){
+                    newDataUri = rotateImageIOSFix(newDataUri);
+                }
                 img2.src = newDataUri;
             }
         };
@@ -54,11 +57,6 @@
         // draw source image into the off-screen canvas:
         drawImageIOSFix(ctx, img, 0, 0, img.width, img.height, 0, 0, width, height);
         // encode image to data-uri with base64 version of compressed image
-        
-        if(/iPad|iPhone|iPod/.test(navigator.platform)){
-            rotateImageIOSFix(canvas.toDataURL('image/jpeg', quality || 0.8));
-        }
-        
         return canvas.toDataURL('image/jpeg', quality || 0.8); // quality = [0.0, 1.0]
     }
 
@@ -104,12 +102,18 @@
             dx, dy, dw, dh);
     }
     
-    function rotateImageIOSFix(dataURI) {
+    function rotateBase64Image(base64data) {
+        var canvas = document.getElementById("c");
         var ctx = canvas.getContext("2d");
+    
         var image = new Image();
         image.src = base64data;
-        ctx.translate(image.width, image.height);
-        ctx.rotate(180 * Math.PI / 180);
-        ctx.drawImage(image, 0, 0); 
+        image.onload = function() {
+            ctx.translate(image.width, image.height);
+            ctx.rotate(180 * Math.PI / 180);
+            ctx.drawImage(image, 0, 0);
+        };
+
     }
+    
 }());
