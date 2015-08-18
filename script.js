@@ -53,7 +53,7 @@
         // rotate around this point
         
         if(/iPad|iPhone|iPod/.test(navigator.platform)){
-            ctx.translate(width * 0.5, height);
+            ctx.translate(-width * 0.5, height);
             ctx.rotate(90 * Math.PI / 180);
         }
         
