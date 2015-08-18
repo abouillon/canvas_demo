@@ -53,7 +53,7 @@
         // rotate around this point
         
         if(width > height){
-            ctx.translate(-width * 2, -height * 0.5);
+            ctx.translate(-width * 2, -height * 2);
             ctx.rotate(90 * Math.PI / 180);
         }
         
