@@ -125,11 +125,11 @@
     function rotateImage() {
         var canvas = document.createElement('canvas');
         var ctx = canvas.getContext("2d");
-        canvas.width = tmpWidth;
-        canvas.height = tmpHeight;
-        ctx.translate(height, 0);
+        canvas.width = tmpHeight;
+        canvas.height = tmpWidth;
+        ctx.translate(tmpHeight, 0);
         ctx.rotate(90 * Math.PI / 180);
-        ctx.drawImage(image, 0, 0, width, height);
+        ctx.drawImage(image, 0, 0, tmpWidth, tmpHeight);
         var result =  canvas.toDataURL('image/jpeg', quality || 0.8);
         renderResult(result);
     }
