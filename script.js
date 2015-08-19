@@ -115,7 +115,6 @@
      * (This should only apply if the photo is in portrait mode)
      */
     function rotateBase64Image(base64data, quality, width, height) {
-        var img2 = document.getElementById('img2');
         var canvas = document.createElement('canvas');
         var ctx = canvas.getContext("2d");
 
