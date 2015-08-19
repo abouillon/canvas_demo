@@ -47,7 +47,7 @@
         } else {
             newDataUri = imageToDataUri(this, width, height, quality);
         }
-        renderResult(newDataUri);
+        img2.src = newDataUri;
     }
 
     function imageToDataUri(img, width, height, quality) {
@@ -105,9 +105,6 @@
         ctx.drawImage(img, sx * vertSquashRatio, sy * vertSquashRatio,
             sw * vertSquashRatio, sh * vertSquashRatio,
             dx, dy, dw, dh);
-    }
-    function renderResult(data){
-        img2.src = data;
     }
     /*
      * Rotates the image 90 degrees on iOS devices.
