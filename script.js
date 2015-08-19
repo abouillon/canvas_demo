@@ -1,7 +1,7 @@
 //wrap logic in IIFE
 (function() {
     'use-strict';
-    var img1, img2, fileInput, reader, data, img, isTall, tmpWidth, tmpHeight, tmpImg, quality = 0.8;
+    var img1, img2, fileInput, reader, data, img, isTall, quality = 0.8;
     //NOTE: Assumes the photo was taken in landscape, or rotates the photo to landscape if not.
     window.onload = function() {
         img1 = document.getElementById('img1');
@@ -40,8 +40,7 @@
 
         if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
             if (isTall) {
-                newDataUri = imageToDataUri(this, width, height, quality);
-                newDataUri = rotateBase64Image(this, newDataUri, quality, width, height);
+                newDataUri = rotateBase64Image(this, quality, width, height);
             } else {
                 newDataUri = imageToDataUri(this, width, height, quality);
             }
@@ -114,24 +113,15 @@
      * Rotates the image 90 degrees on iOS devices.
      * (This should only apply if the photo is in portrait mode)
      */
-    function rotateBase64Image(image, base64data, quality, width, height) {
-        tmpWidth = width;
-        tmpHeight = height;
-        image.onload = rotateImage;
-        image.src = base64data;
-        tmpImage = image;
-    }
-
-    function rotateImage() {
+    function rotateBase64Image(image, width, height) {
         var canvas = document.createElement('canvas');
         var ctx = canvas.getContext("2d");
-        canvas.width = tmpHeight;
-        canvas.height = tmpWidth;
-        ctx.translate(tmpHeight, 0);
+        canvas.width = height;
+        canvas.height = width;
+        ctx.translate(height, 0);
         ctx.rotate(90 * Math.PI / 180);
-        ctx.drawImage(tmpImage, 0, 0, tmpWidth, tmpHeight);
-        var result =  canvas.toDataURL('image/jpeg', quality || 0.8);
-        renderResult(result);
+        ctx.drawImage(image, 0, 0, width, height);
+        return canvas.toDataURL('image/jpeg', quality);
     }
 
     function getOrientation() {
@@ -148,3 +138,4 @@
     }
 
 }());
+
