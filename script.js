@@ -28,7 +28,11 @@
                 width = (img.width / ratio);
                 height = (img.height / ratio);
                 
-                newDataUri = imageToDataUri(this, width, height, quality);
+                if(/iPad|iPhone|iPod/.test(navigator.platform)){
+                    newDataUri = rotateBase64Image(this, width, height, quality);
+                } else {
+                    newDataUri = imageToDataUri(this, width, height, quality);
+                }
                 img2.src = newDataUri;
             }
         };
@@ -112,6 +116,7 @@
         // rotate around this point
         // draw source image into the off-screen canvas:
         drawImageIOSFix(ctx, img, 0, 0, img.width, img.height, 0, 0, width, height);
+        
         ctx.translate(image.width, image.height);
         ctx.rotate(90 * Math.PI / 180);
         // encode image to data-uri with base64 version of compressed image
