@@ -1,7 +1,7 @@
 //wrap logic in IIFE
 (function() {
     'use-strict';
-    var img1, img2, fileInput, reader, data, img, isTall, tmpWidth, tmpHeight;
+    var img1, img2, fileInput, reader, data, img, isTall, tmpWidth, tmpHeight, tmpImg;
     //NOTE: Assumes the photo was taken in landscape, or rotates the photo to landscape if not.
     window.onload = function() {
         img1 = document.getElementById('img1');
@@ -120,6 +120,7 @@
         tmpHeight = height;
         image.onload = rotateImage;
         image.src = base64data;
+        tmpImage = image;
     }
 
     function rotateImage() {
@@ -129,7 +130,7 @@
         canvas.height = tmpWidth;
         ctx.translate(tmpHeight, 0);
         ctx.rotate(90 * Math.PI / 180);
-        ctx.drawImage(image, 0, 0, tmpWidth, tmpHeight);
+        ctx.drawImage(tmpImage, 0, 0, tmpWidth, tmpHeight);
         var result =  canvas.toDataURL('image/jpeg', quality || 0.8);
         renderResult(result);
     }
