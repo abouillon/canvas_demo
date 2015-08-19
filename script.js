@@ -1,7 +1,7 @@
 //wrap logic in IIFE
 (function() {
     'use-strict';
-    var img1, img2, fileInput, reader, data, img, isTall, tmpWidth, tmpHeight, tmpImg;
+    var img1, img2, fileInput, reader, data, img, isTall, tmpWidth, tmpHeight, tmpImg, quality = 0.8;
     //NOTE: Assumes the photo was taken in landscape, or rotates the photo to landscape if not.
     window.onload = function() {
         img1 = document.getElementById('img1');
@@ -30,7 +30,6 @@
     function resizeImage() {
         var width = 0,
             height = 0,
-            quality = 0.8,
             target = 1600,
             ratio = 1,
             newDataUri = null;
