@@ -28,11 +28,7 @@
                 width = (img.width / ratio);
                 height = (img.height / ratio);
                 
-                if(/iPad|iPhone|iPod/.test(navigator.platform)){
-                    newDataUri = rotateImageIOSFix(this, height, width, quality);
-                } else {
-                    newDataUri = imageToDataUri(this, width, height, quality);
-                }
+                newDataUri = imageToDataUri(this, width, height, quality);
                 img2.src = newDataUri;
             }
         };
@@ -102,20 +98,6 @@
         ctx.drawImage(img, sx * vertSquashRatio, sy * vertSquashRatio,
             sw * vertSquashRatio, sh * vertSquashRatio,
             dx, dy, dw, dh);
-    }
-    
-    function rotateBase64Image(img, width, height, quality) {
-        var canvas = document.createElement('canvas');
-        var ctx = canvas.getContext("2d");
-        
-        canvas.width = width;
-        canvas.height = height;
-        // rotate around this point
-        // draw source image into the off-screen canvas:
-        drawImageIOSFix(ctx, img, 0, 0, img.width, img.height, 0, 0, width, height);
-        
-        return canvas.toDataURL('image/jpeg', quality || 0.8);
-        
     }
     
 }());
