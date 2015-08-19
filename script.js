@@ -1,7 +1,7 @@
 //wrap logic in IIFE
 (function() {
     'use-strict';
-    var img1, img2, fileInput, reader, data, img, isTall;
+    var img1, img2, fileInput, reader, data, img, isTall, tmpWidth, tmpHeight;
     //NOTE: Assumes the photo was taken in landscape, or rotates the photo to landscape if not.
     window.onload = function() {
         img1 = document.getElementById('img1');
@@ -49,8 +49,7 @@
         } else {
             newDataUri = imageToDataUri(this, width, height, quality);
         }
-        
-        img2.src = newDataUri;
+        renderResult(newDataUri);
     }
 
     function imageToDataUri(img, width, height, quality) {
@@ -109,25 +108,30 @@
             sw * vertSquashRatio, sh * vertSquashRatio,
             dx, dy, dw, dh);
     }
-
+    function renderResult(data){
+        img2.src = data;
+    }
     /*
      * Rotates the image 90 degrees on iOS devices.
      * (This should only apply if the photo is in portrait mode)
      */
     function rotateBase64Image(image, base64data, quality, width, height) {
+        tmpWidth = width;
+        tmpHeight = height;
+        image.onload = rotateImage;
+        image.src = base64data;
+    }
+
+    function rotateImage() {
         var canvas = document.createElement('canvas');
         var ctx = canvas.getContext("2d");
-
-        canvas.width = height;
-        canvas.height = width;
-        
-        image.src = base64data;
-        
+        canvas.width = tmpWidth;
+        canvas.height = tmpHeight;
         ctx.translate(height, 0);
         ctx.rotate(90 * Math.PI / 180);
         ctx.drawImage(image, 0, 0, width, height);
-        return canvas.toDataURL('image/jpeg', quality || 0.8);
-        
+        var result =  canvas.toDataURL('image/jpeg', quality || 0.8);
+        renderResult(result);
     }
 
     function getOrientation() {
