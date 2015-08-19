@@ -54,8 +54,14 @@
         //get the context of the canvas
         var ctx = canvas.getContext('2d');
         // set its dimension to target size
+        if(width > height){
         canvas.width = width;
         canvas.height = height;
+        }
+        if(height > width){
+            canvas.width = height;
+            canvas.height = width;
+        }
         // rotate around this point
         // draw source image into the off-screen canvas:
         drawImageIOSFix(ctx, img, 0, 0, img.width, img.height, 0, 0, width, height);
