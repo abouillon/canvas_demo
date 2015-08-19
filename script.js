@@ -30,7 +30,7 @@
                 
                 newDataUri = imageToDataUri(this, width, height, quality);
                 if(/iPad|iPhone|iPod/.test(navigator.platform)){
-                    rotateBase64Image(newDataUri);
+                    rotateBase64Image(newDataUri, 'callback');
                 } else {
                     img2.src = newDataUri;
                 }
@@ -106,7 +106,6 @@
     }
     
     function rotateBase64Image(base64data) {
-        var img2 = document.getElementById('img2');
         var canvas = document.createElement('canvas');
         var ctx = canvas.getContext("2d");
     
@@ -116,10 +115,13 @@
             ctx.translate(image.width, image.height);
             ctx.rotate(180 * Math.PI / 180);
             ctx.drawImage(image, 0, 0); 
-        };
-        
-        img2.src = canvas.toDataURL('image/jpeg', quality || 0.8);
+            window.eval(""+callback+"('"+canvas.toDataURL()+"')");
+        }
 
+    }
+    function callback(base64data) {
+        var img2 = document.getElementById('img2');
+        img2.src = base64data;
     }
     
 }());
