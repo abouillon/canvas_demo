@@ -30,11 +30,11 @@
 
                 if(/iPad|iPhone|iPod/.test(navigator.platform)){
                     var portrait = isPortrait(this);
-                    if(isPortrait){
+                    if(portrait === true){
                         newDataUri = imageToDataUri(this, height, width, quality);
                         rotateBase64Image(newDataUri, quality, width, height);
                     } 
-                    if(!isPortrait){
+                    if(portrait === false){
                         newDataUri = imageToDataUri(this, width, height, quality);
                         img2.src = newDataUri;
                     }
@@ -113,6 +113,10 @@
             dx, dy, dw, dh);
     }
     
+    /*
+    * Rotates the image 90 degrees on iOS devices.
+    * (This should only apply if the photo is in portrait mode)
+    */
     function rotateBase64Image(base64data, quality, width, height) {
         var img2 = document.getElementById('img2');
         var canvas = document.createElement('canvas');
