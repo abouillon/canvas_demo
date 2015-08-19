@@ -54,14 +54,8 @@
         //get the context of the canvas
         var ctx = canvas.getContext('2d');
         // set its dimension to target size
-        if(width > height){
         canvas.width = width;
         canvas.height = height;
-        }
-        if(height > width){
-            canvas.width = height;
-            canvas.height = width;
-        }
         // rotate around this point
         // draw source image into the off-screen canvas:
         drawImageIOSFix(ctx, img, 0, 0, img.width, img.height, 0, 0, width, height);
@@ -116,9 +110,14 @@
         var canvas = document.createElement('canvas');
         var ctx = canvas.getContext("2d");
         
-        if(width > height){
+        if(height > width){
             canvas.width = height;
             canvas.height = width;
+        }
+        if(width > height){
+            canvas.width = width;
+            canvas.height = height;
+        }
             
             var image = new Image();
             image.src = base64data;
@@ -128,10 +127,6 @@
                 ctx.drawImage(image, 0, 0, width, height);
                 img2.src = canvas.toDataURL('image/jpeg', quality || 0.8);
             };
-        }
-        if(height > width){
-            img2.src = imageToDataUri(base64data, width, height, quality);
-        }
     }
     
 }());
