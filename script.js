@@ -11,9 +11,11 @@
         reader.onloadend = function() {
             var data = reader.result;
             img1.src = data;
-            var img = new Image();
-            img.onload = resizeImage;
-            img.src = data;
+            img1.onload = function(){
+                var isTall = isPortrait();
+                var img = new Image();
+                img.onload = resizeImage;
+                img.src = data;
 
             // Resize the image
             function resizeImage() {
@@ -31,12 +33,10 @@
                 console.log(width + " x " + height);
 
                 if(/iPad|iPhone|iPod/.test(navigator.platform)){
-                    var portrait = isPortrait(this);
-                    if(portrait === true){
+                    if(isTall){
                         newDataUri = imageToDataUri(this, width, height, quality);
                         rotateBase64Image(newDataUri, quality, width, height);
-                    } 
-                    if(portrait === false){
+                    } else {
                         newDataUri = imageToDataUri(this, width, height, quality);
                         img2.src = newDataUri;
                     }
@@ -142,5 +142,6 @@
         h = img.naturalHeight || img.height;
         return (h > w);
     }
+    };
     
 }());
