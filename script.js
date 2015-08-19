@@ -27,10 +27,11 @@
                 ratio = (img.width / target);
                 width = (img.width / ratio);
                 height = (img.height / ratio);
-                
+
                 newDataUri = imageToDataUri(this, width, height, quality);
                 if(/iPad|iPhone|iPod/.test(navigator.platform)){
-                    if(img.naturalheight > img.naturalWidth){
+                    var portrait = isPortrait(this);
+                    if(isPortrait){
                         rotateBase64Image(newDataUri, quality, width, height);
                     } else {
                         img2.src = newDataUri;
@@ -125,6 +126,12 @@
             ctx.drawImage(image, 0, 0, width, height);
             img2.src = canvas.toDataURL('image/jpeg', quality || 0.8);
         };
+    }
+    
+    function isPortrait(img){
+        var w = img.naturalWidth || img.width,
+        h = img.naturalHeight || img.height;
+        return (h > w);
     }
     
 }());
