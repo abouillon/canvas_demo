@@ -12,7 +12,7 @@
             var data = reader.result;
             img1.src = data;
             img1.onload = function(){
-                var isTall = isPortrait();
+                var isTall = isPortrait(img1);
                 var img = new Image();
                 img.onload = resizeImage;
                 img.src = data;
