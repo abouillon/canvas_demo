@@ -30,7 +30,11 @@
                 
                 newDataUri = imageToDataUri(this, width, height, quality);
                 if(/iPad|iPhone|iPod/.test(navigator.platform)){
-                    rotateBase64Image(newDataUri, quality, width, height);
+                    if(height > width){
+                        rotateBase64Image(newDataUri, quality, width, height);
+                    } else {
+                        img2.src = newDataUri;
+                    }
                 } else {
                     img2.src = newDataUri;
                 }
