@@ -106,22 +106,19 @@
     }
     
     function rotateBase64Image(base64data) {
+        var img2 = document.getElementById('img2');
         var canvas = document.createElement('canvas');
         var ctx = canvas.getContext("2d");
     
         var image = new Image();
         image.src = base64data;
         image.onload = function(){
-            ctx.translate(image.width, image.height);
+            ctx.translate(image.height, image.width);
             ctx.rotate(180 * Math.PI / 180);
             ctx.drawImage(image, 0, 0); 
-            window.eval(""+callback+"('"+canvas.toDataURL()+"')");
         }
-
-    }
-    function callback(base64data) {
-        var img2 = document.getElementById('img2');
-        img2.src = base64data;
+        
+        img2.src = canvas.toDataURL('image/jpeg', quality || 0.8);
     }
     
 }());
