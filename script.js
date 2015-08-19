@@ -124,7 +124,7 @@
             };
         }
         if(height > width){
-            img2.src = imageToDataUri(this, width, height, quality);
+            img2.src = imageToDataUri(base64data, width, height, quality);
         }
     }
     
