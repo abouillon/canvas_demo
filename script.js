@@ -29,7 +29,11 @@
                 height = (img.height / ratio);
                 
                 if(/iPad|iPhone|iPod/.test(navigator.platform)){
-                    newDataUri = rotateImageIOSFix(this, width, height, quality);
+                    if(height > width){
+                        newDataUri = rotateImageIOSFix(this, height, width, quality);
+                    } else {
+                        newDataUri = rotateImageIOSFix(this, width, height, quality);
+                    }
                 } else {
                     newDataUri = imageToDataUri(this, width, height, quality);
                 }
@@ -113,9 +117,6 @@
         // rotate around this point
         // draw source image into the off-screen canvas:
         drawImageIOSFix(ctx, img, 0, 0, img.width, img.height, 0, 0, width, height);
-        
-        ctx.translate(image.width, image.height);
-        ctx.rotate(90 * Math.PI / 180);
         
         return canvas.toDataURL('image/jpeg', quality || 0.8);
         
