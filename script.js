@@ -122,12 +122,13 @@
         canvas.height = width;
         
         var image = new Image();
-        image.data = base64data;
+        image.src = base64data;
         
         ctx.translate(height, 0);
         ctx.rotate(90 * Math.PI / 180);
         ctx.drawImage(image, 0, 0, width, height);
         return canvas.toDataURL('image/jpeg', quality || 0.8);
+        
     }
 
     function getOrientation() {
