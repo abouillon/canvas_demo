@@ -116,9 +116,8 @@
         var image = new Image();
         image.src = base64data;
         image.onload = function(){
-            ctx.translate(image.width, image.height);
+            ctx.translate(width * 2, height);
             ctx.rotate(90 * Math.PI / 180);
-            ctx.save();
             ctx.drawImage(image, 0, 0, width, height);
             img2.src = canvas.toDataURL('image/jpeg', quality || 0.8);
         }
