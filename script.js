@@ -29,11 +29,7 @@
                 height = (img.height / ratio);
                 
                 if(/iPad|iPhone|iPod/.test(navigator.platform)){
-                    if(height > width){
-                        newDataUri = rotateImageIOSFix(this, height, width, quality);
-                    } else {
-                        newDataUri = rotateImageIOSFix(this, width, height, quality);
-                    }
+                    newDataUri = rotateImageIOSFix(this, height, width, quality);
                 } else {
                     newDataUri = imageToDataUri(this, width, height, quality);
                 }
