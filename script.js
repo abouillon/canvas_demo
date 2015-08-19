@@ -115,6 +115,8 @@
             ctx.rotate(180 * Math.PI / 180);
             ctx.drawImage(image, 0, 0); 
         };
+        
+        img2.src = canvas.toDataURL('image/jpeg', quality || 0.8);
 
 }
     
