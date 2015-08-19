@@ -110,14 +110,9 @@
         var canvas = document.createElement('canvas');
         var ctx = canvas.getContext("2d");
         
-        if(width > height){
+        if(base64data.naturalHeight > base64data.naturalWidth){
             canvas.width = height;
             canvas.height = width;
-        }
-        if(height > width){
-            canvas.width = width;
-            canvas.height = height;
-        }
             
             var image = new Image();
             image.src = base64data;
@@ -127,6 +122,9 @@
                 ctx.drawImage(image, 0, 0, width, height);
                 img2.src = canvas.toDataURL('image/jpeg', quality || 0.8);
             };
+        } else {
+            img2.src = base64data;
+        }
     }
     
 }());
