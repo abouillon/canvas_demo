@@ -1,7 +1,7 @@
 //wrap logic in IIFE
 (function() {
     'use-strict';
-    var img1, img2, fileInput, reader, data;
+    var img1, img2, fileInput, reader, data, img, isTall;
     //NOTE: Assumes the photo was taken in landscape, or rotates the photo to landscape if not.
     window.onload = function() {
         img1 = document.getElementById('img1');
@@ -133,8 +133,8 @@
     }
 
     function getOrientation() {
-        var isTall = isPortrait(img1);
-        var img = new Image();
+        isTall = isPortrait(img1);
+        img = new Image();
         img.onload = resizeImage;
         img.src = data;
     }
