@@ -110,7 +110,7 @@
         var canvas = document.createElement('canvas');
         var ctx = canvas.getContext("2d");
         
-        if(base64data.naturalHeight > base64data.naturalWidth){
+        if(base64data.naturalWidth > base64data.naturalHeight){
             canvas.width = height;
             canvas.height = width;
             
