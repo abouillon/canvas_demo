@@ -100,6 +100,8 @@
      */
     function drawImageIOSFix(ctx, img, sx, sy, sw, sh, dx, dy, dw, dh) {
         var vertSquashRatio = detectVerticalSquash(img);
+        ctx.translate(sx, sy);
+        ctx.rotate(90 * Math.PI / 180);
         ctx.drawImage(img, sx * vertSquashRatio, sy * vertSquashRatio,
             sw * vertSquashRatio, sh * vertSquashRatio,
             dx, dy, dw, dh);
