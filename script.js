@@ -28,15 +28,17 @@
                 width = (img.width / ratio);
                 height = (img.height / ratio);
 
-                newDataUri = imageToDataUri(this, width, height, quality);
                 if(/iPad|iPhone|iPod/.test(navigator.platform)){
                     var portrait = isPortrait(this);
                     if(isPortrait){
+                        newDataUri = imageToDataUri(this, width, height, quality);
                         rotateBase64Image(newDataUri, quality, width, height);
                     } else {
+                        newDataUri = imageToDataUri(this, width, height, quality);
                         img2.src = newDataUri;
                     }
                 } else {
+                    newDataUri = imageToDataUri(this, width, height, quality);
                     img2.src = newDataUri;
                 }
             }
