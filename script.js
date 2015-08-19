@@ -32,9 +32,9 @@
                     var portrait = isPortrait(this);
                     if(isPortrait){
                         newDataUri = imageToDataUri(this, height, width, quality);
-                        //rotateBase64Image(newDataUri, quality, width, height);
-                        img2.src = newDataUri;
-                    } else {
+                        rotateBase64Image(newDataUri, quality, width, height);
+                    } 
+                    if(!isPortrait){
                         newDataUri = imageToDataUri(this, width, height, quality);
                         img2.src = newDataUri;
                     }
