@@ -30,7 +30,7 @@
                 
                 newDataUri = imageToDataUri(this, width, height, quality);
                 if(/iPad|iPhone|iPod/.test(navigator.platform)){
-                    rotateBase64Image(newDataUri, 'callback');
+                    rotateBase64Image(newDataUri, quality);
                 } else {
                     img2.src = newDataUri;
                 }
@@ -105,7 +105,7 @@
             dx, dy, dw, dh);
     }
     
-    function rotateBase64Image(base64data) {
+    function rotateBase64Image(base64data, quality) {
         var img2 = document.getElementById('img2');
         var canvas = document.createElement('canvas');
         var ctx = canvas.getContext("2d");
