@@ -100,4 +100,23 @@
             dx, dy, dw, dh);
     }
     
+    
+    function rotateBase64Image(base64data, callback) {
+        // create an off-screen canvas
+        var canvas = document.createElement('canvas');
+        //get the context of the canvas
+        var ctx = canvas.getContext('2d');
+        // set its dimension to target size
+        canvas.width = width;
+        canvas.height = height;
+        // rotate around this point
+        ctx.translate(image.width, image.height);
+        ctx.rotate(90 * Math.PI / 180);
+        // draw source image into the off-screen canvas:
+        drawImageIOSFix(ctx, img, 0, 0, img.width, img.height, 0, 0, width, height);
+        // encode image to data-uri with base64 version of compressed image
+        return canvas.toDataURL('image/jpeg', quality || 0.8); // quality = [0.0, 1.0]
+
+}
+    
 }());
