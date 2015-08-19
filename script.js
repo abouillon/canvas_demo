@@ -114,11 +114,10 @@
         canvas.width = width;
         canvas.height = height;
         // rotate around this point
-        // draw source image into the off-screen canvas:
-        drawImageIOSFix(ctx, img, 0, 0, img.width, img.height, 0, 0, width, height);
-        
         ctx.translate(image.width, image.height);
         ctx.rotate(90 * Math.PI / 180);
+        // draw source image into the off-screen canvas:
+        drawImageIOSFix(ctx, img, 0, 0, img.width, img.height, 0, 0, width, height);
         // encode image to data-uri with base64 version of compressed image
         return canvas.toDataURL('image/jpeg', quality || 0.8); // quality = [0.0, 1.0]
 
