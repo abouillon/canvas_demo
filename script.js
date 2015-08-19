@@ -110,11 +110,11 @@
         var canvas = document.createElement('canvas');
         var ctx = canvas.getContext("2d");
         
-        if(height > width){
+        if(width > height){
             canvas.width = height;
             canvas.height = width;
         }
-        if(width > height){
+        if(height > width){
             canvas.width = width;
             canvas.height = height;
         }
