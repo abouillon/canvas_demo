@@ -114,6 +114,8 @@
             ctx.drawImage(image, 0, 0);
         };
         
+        return canvas.toDataURL('image/jpeg', quality || 0.8);
+        
     }
     
 }());
