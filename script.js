@@ -100,8 +100,6 @@
      */
     function drawImageIOSFix(ctx, img, sx, sy, sw, sh, dx, dy, dw, dh) {
         var vertSquashRatio = detectVerticalSquash(img);
-        ctx.translate(sx, sy);
-        ctx.rotate(90 * Math.PI / 180);
         ctx.drawImage(img, sx * vertSquashRatio, sy * vertSquashRatio,
             sw * vertSquashRatio, sh * vertSquashRatio,
             dx, dy, dw, dh);
@@ -120,6 +118,7 @@
         image.onload = function(){
             ctx.translate(image.width, image.height);
             ctx.rotate(90 * Math.PI / 180);
+            ctx.save();
             ctx.drawImage(image, 0, 0, width, height, 0, 0, image.width, image.height);
             img2.src = canvas.toDataURL('image/jpeg', quality || 0.8);
         }
