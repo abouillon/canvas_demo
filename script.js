@@ -31,7 +31,7 @@
                 if(/iPad|iPhone|iPod/.test(navigator.platform)){
                     var portrait = isPortrait(this);
                     if(portrait === true){
-                        newDataUri = imageToDataUri(this, height, width, quality);
+                        newDataUri = imageToDataUri(this, width, height, quality);
                         rotateBase64Image(newDataUri, quality, width, height);
                     } 
                     if(portrait === false){
