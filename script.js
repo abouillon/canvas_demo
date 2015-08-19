@@ -110,10 +110,10 @@
         image.src = base64data;
         image.onload = function() {
             ctx.translate(image.width, image.height);
-            ctx.rotate(180 * Math.PI / 180);
+            ctx.rotate(90 * Math.PI / 180);
             ctx.drawImage(image, 0, 0);
         };
-
+        
     }
     
 }());
