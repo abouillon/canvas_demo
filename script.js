@@ -42,7 +42,7 @@
         if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
             if (isTall) {
                 newDataUri = imageToDataUri(this, width, height, quality);
-                newDataUri = rotateBase64Image(newDataUri, quality, width, height);
+                newDataUri = rotateBase64Image(this, newDataUri, quality, width, height);
             } else {
                 newDataUri = imageToDataUri(this, width, height, quality);
             }
@@ -114,14 +114,13 @@
      * Rotates the image 90 degrees on iOS devices.
      * (This should only apply if the photo is in portrait mode)
      */
-    function rotateBase64Image(base64data, quality, width, height) {
+    function rotateBase64Image(image, base64data, quality, width, height) {
         var canvas = document.createElement('canvas');
         var ctx = canvas.getContext("2d");
 
         canvas.width = height;
         canvas.height = width;
         
-        var image = new Image();
         image.src = base64data;
         
         ctx.translate(height, 0);
