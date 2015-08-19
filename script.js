@@ -30,11 +30,7 @@
                 
                 newDataUri = imageToDataUri(this, width, height, quality);
                 if(/iPad|iPhone|iPod/.test(navigator.platform)){
-                    if(img.height > img.width){
-                        img2.src = newDataUri;
-                    } else {
-                        rotateBase64Image(newDataUri, quality, width, height);
-                    }
+                    rotateBase64Image(newDataUri, quality, width, height);
                 } else {
                     img2.src = newDataUri;
                 }
@@ -113,17 +109,31 @@
         var img2 = document.getElementById('img2');
         var canvas = document.createElement('canvas');
         var ctx = canvas.getContext("2d");
-    
-        canvas.width = height;
-        canvas.height = width;
         
-        var image = new Image();
-        image.src = base64data;
-        image.onload = function(){
-            ctx.translate(height, 0);
-            ctx.rotate(90 * Math.PI / 180);
-            ctx.drawImage(image, 0, 0, width, height);
-            img2.src = canvas.toDataURL('image/jpeg', quality || 0.8);
+        if(height > width){
+            canvas.width = height;
+            canvas.height = width;
+            
+            var image = new Image();
+            image.src = base64data;
+            image.onload = function(){
+                ctx.translate(height, 0);
+                ctx.rotate(90 * Math.PI / 180);
+                ctx.drawImage(image, 0, 0, width, height);
+                img2.src = canvas.toDataURL('image/jpeg', quality || 0.8);
+            };
+        } else {
+            canvas.width = width;
+            canvas.height = height;
+            
+            var image = new Image();
+            image.src = base64data;
+            image.onload = function(){
+                //ctx.translate(width, 0);
+                //ctx.rotate(90 * Math.PI / 180);
+                ctx.drawImage(image, 0, 0, width, height);
+                img2.src = canvas.toDataURL('image/jpeg', quality || 0.8);
+            };
         }
     }
     
