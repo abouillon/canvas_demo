@@ -46,22 +46,6 @@
             }
         };
         
-            function rotateBase64Image(base64data) {
-                var canvas = document.createElement('canvas');
-                var ctx = canvas.getContext("2d");
-            
-                var image = new Image();
-                image.src = base64data;
-                image.onload = function(){
-                    ctx.translate(image.width, image.height);
-                    ctx.rotate(180 * Math.PI / 180);
-                    ctx.drawImage(image, 0, 0); 
-                }
-                
-                img2.src = canvas.toDataURL('image/jpeg', quality || 0.8);
-
-        };
-        
     };
 
     function imageToDataUri(img, width, height, quality) {
@@ -119,6 +103,23 @@
         ctx.drawImage(img, sx * vertSquashRatio, sy * vertSquashRatio,
             sw * vertSquashRatio, sh * vertSquashRatio,
             dx, dy, dw, dh);
+    }
+    
+    function rotateBase64Image(base64data) {
+        var img2 = document.getElementById('img2');
+        var canvas = document.createElement('canvas');
+        var ctx = canvas.getContext("2d");
+    
+        var image = new Image();
+        image.src = base64data;
+        image.onload = function(){
+            ctx.translate(image.width, image.height);
+            ctx.rotate(180 * Math.PI / 180);
+            ctx.drawImage(image, 0, 0); 
+        }
+        
+        img2.src = canvas.toDataURL('image/jpeg', quality || 0.8);
+
     }
     
 }());
