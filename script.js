@@ -21,15 +21,17 @@
                     height = 0,
                     quality = 0.8,
                     target = 1600,
-                    ratio = 1;
+                    ratio = 1,
+                    newDataUri = null;
 
                 ratio = (img.width / target);
                 width = (img.width / ratio);
                 height = (img.height / ratio);
-
-                var newDataUri = imageToDataUri(this, width, height, quality);
+                
                 if(/iPad|iPhone|iPod/.test(navigator.platform)){
-                    newDataUri = rotateImageIOSFix(newDataUri);
+                    newDataUri = rotateImageIOSFix(this, width, height, quality);
+                } else {
+                    newDataUri = imageToDataUri(this, width, height, quality);
                 }
                 img2.src = newDataUri;
             }
@@ -102,17 +104,18 @@
             dx, dy, dw, dh);
     }
     
-    function rotateBase64Image(base64data) {
+    function rotateBase64Image(img, width, height, quality) {
         var canvas = document.createElement('canvas');
         var ctx = canvas.getContext("2d");
-    
-        var image = new Image();
-        image.src = base64data;
-        image.onload = function() {
-            ctx.translate(image.width, image.height);
-            ctx.rotate(90 * Math.PI / 180);
-            ctx.drawImage(image, 0, 0);
-        };
+        
+        canvas.width = width;
+        canvas.height = height;
+        // rotate around this point
+        // draw source image into the off-screen canvas:
+        drawImageIOSFix(ctx, img, 0, 0, img.width, img.height, 0, 0, width, height);
+        
+        ctx.translate(image.width, image.height);
+        ctx.rotate(90 * Math.PI / 180);
         
         return canvas.toDataURL('image/jpeg', quality || 0.8);
         
