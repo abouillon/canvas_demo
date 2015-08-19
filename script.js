@@ -27,6 +27,8 @@
                 ratio = (img.width / target);
                 width = (img.width / ratio);
                 height = (img.height / ratio);
+                
+                console.log(width + " x " + height);
 
                 if(/iPad|iPhone|iPod/.test(navigator.platform)){
                     var portrait = isPortrait(this);
