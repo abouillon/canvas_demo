@@ -30,7 +30,7 @@
                 
                 newDataUri = imageToDataUri(this, width, height, quality);
                 if(/iPad|iPhone|iPod/.test(navigator.platform)){
-                    rotateBase64Image(newDataUri, quality);
+                    rotateBase64Image(newDataUri, quality, width, height);
                 } else {
                     img2.src = newDataUri;
                 }
@@ -105,14 +105,18 @@
             dx, dy, dw, dh);
     }
     
-    function rotateBase64Image(base64data, quality) {
+    function rotateBase64Image(base64data, quality, width, height) {
         var img2 = document.getElementById('img2');
         var canvas = document.createElement('canvas');
         var ctx = canvas.getContext("2d");
     
+        canvas.width = width;
+        canvas.height = height;
+        
         var image = new Image();
         image.src = base64data;
         image.onload = function(){
+            ctx.translate(image.width, image.height);
             ctx.rotate(90 * Math.PI / 180);
             ctx.drawImage(image, 0, 0);
             img2.src = canvas.toDataURL('image/jpeg', quality || 0.8);
