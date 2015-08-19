@@ -118,7 +118,7 @@
         image.onload = function(){
             ctx.translate(image.width, image.height);
             ctx.rotate(90 * Math.PI / 180);
-            ctx.drawImage(image, 0, 0, image.width, image.height);
+            ctx.drawImage(image, 0, 0, width, height, 0, 0, image.width, image.height);
             img2.src = canvas.toDataURL('image/jpeg', quality || 0.8);
         }
     }
