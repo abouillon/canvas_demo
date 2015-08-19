@@ -29,9 +29,10 @@
                 height = (img.height / ratio);
                 
                 newDataUri = imageToDataUri(this, width, height, quality);
-                img2.src = newDataUri;
                 if(/iPad|iPhone|iPod/.test(navigator.platform)){
-                    rotateBase64Image(img2.src);
+                    rotateBase64Image(newDataUri);
+                } else {
+                    img2.src = newDataUri;
                 }
             }
         };
@@ -46,14 +47,16 @@
         };
         
             function rotateBase64Image(base64data) {
-                var canvas = document.getElementById('img2');
+                var canvas = document.createElement('canvas');
                 var ctx = canvas.getContext("2d");
             
                 var image = new Image();
                 image.src = base64data;
-                ctx.translate(image.width, image.height);
-                ctx.rotate(180 * Math.PI / 180);
-                ctx.drawImage(image, 0, 0); 
+                image.onload = function(){
+                    ctx.translate(image.width, image.height);
+                    ctx.rotate(180 * Math.PI / 180);
+                    ctx.drawImage(image, 0, 0); 
+                }
                 
                 img2.src = canvas.toDataURL('image/jpeg', quality || 0.8);
 
