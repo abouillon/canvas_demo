@@ -105,7 +105,7 @@
     }
     
     
-    function rotateBase64Image(base64data, callback) {
+    function rotateBase64Image(img, width, height, quality) {
         // create an off-screen canvas
         var canvas = document.createElement('canvas');
         //get the context of the canvas
