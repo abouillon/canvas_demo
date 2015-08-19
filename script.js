@@ -30,7 +30,11 @@
                 
                 newDataUri = imageToDataUri(this, width, height, quality);
                 if(/iPad|iPhone|iPod/.test(navigator.platform)){
-                    rotateBase64Image(newDataUri, quality, width, height);
+                    if(img.naturalheight > img.naturalWidth){
+                        rotateBase64Image(newDataUri, quality, width, height);
+                    } else {
+                        img2.src = newDataUri;
+                    }
                 } else {
                     img2.src = newDataUri;
                 }
@@ -110,33 +114,17 @@
         var canvas = document.createElement('canvas');
         var ctx = canvas.getContext("2d");
         
-        if(base64data.naturalWidth > base64data.naturalHeight){
-            canvas.width = height;
-            canvas.height = width;
-            
-            var image = new Image();
-            image.src = base64data;
-            image.onload = function(){
-                ctx.translate(height, 0);
-                ctx.rotate(90 * Math.PI / 180);
-                ctx.drawImage(image, 0, 0, width, height);
-                img2.src = canvas.toDataURL('image/jpeg', quality || 0.8);
-            };
-        }
+        canvas.width = height;
+        canvas.height = width;
         
-        if(base64data.naturalHeight > base64data.naturalWidth){
-            canvas.width = width;
-            canvas.height = height;
-            
-            var image = new Image();
-            image.src = base64data;
-            image.onload = function(){
-                ctx.translate(width, 0);
-                ctx.rotate(90 * Math.PI / 180);
-                ctx.drawImage(image, 0, 0, width, height);
-                img2.src = canvas.toDataURL('image/jpeg', quality || 0.8);
-            };
-        }
+        var image = new Image();
+        image.src = base64data;
+        image.onload = function(){
+            ctx.translate(height, 0);
+            ctx.rotate(90 * Math.PI / 180);
+            ctx.drawImage(image, 0, 0, width, height);
+            img2.src = canvas.toDataURL('image/jpeg', quality || 0.8);
+        };
     }
     
 }());
