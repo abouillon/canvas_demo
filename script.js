@@ -39,7 +39,7 @@
         width = (img.width / ratio);
         height = (img.height / ratio);
 
-        if (/iPad|iPhone|iPod/.test(navigator.platform)) {
+        if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
             if (isTall) {
                 newDataUri = imageToDataUri(this, width, height, quality);
                 newDataUri = rotateBase64Image(newDataUri, quality, width, height);
