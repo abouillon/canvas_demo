@@ -122,8 +122,9 @@
                 ctx.drawImage(image, 0, 0, width, height);
                 img2.src = canvas.toDataURL('image/jpeg', quality || 0.8);
             };
-        } else {
-            img2.src = imageToDataUri(base64Date, width, height, quality);
+        }
+        if(height > width){
+            img2.src = imageToDataUri(this, width, height, quality);
         }
     }
     
