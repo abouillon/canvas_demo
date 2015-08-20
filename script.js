@@ -25,7 +25,6 @@
         data = reader.result;
         img1.onload = getOrientation
         img1.src = data;
-        console.log(img1.width + " x " + img1.height);
     }
     // Resize the image
     function resizeImage() {
@@ -39,6 +38,7 @@
         width = (img.width / ratio);
         height = (img.height / ratio);
 
+        //detect if the device runs iOS or not.
         if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
             if (isTall) {
                 newDataUri = rotateBase64Image(this, width, height);
@@ -108,8 +108,7 @@
             dx, dy, dw, dh);
     }
     /*
-     * Rotates the image 90 degrees on iOS devices.
-     * (This should only apply if the photo is in portrait mode)
+     * Rotates the image 90 degrees if it came from an iOS device.
      */
     function rotateBase64Image(image, width, height) {
         var canvas = document.createElement('canvas');
