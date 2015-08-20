@@ -25,6 +25,7 @@
         data = reader.result;
         img1.onload = getOrientation
         img1.src = data;
+        console.log(img1.width + " x " + img1.height);
     }
     // Resize the image
     function resizeImage() {
